@@ -14,7 +14,6 @@
         "fullscreen": false,
         "decorations": true,
         "center": true,
-        "devtools": true, 
         "zoomHotkeysEnabled": false
       }
     ]
