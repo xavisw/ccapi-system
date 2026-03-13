@@ -17,11 +17,12 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20 # Força uma versão estável
+          node-version: 20
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
       - name: install frontend dependencies
-        run: npm install --legacy-peer-deps # Evita erros de conflito de pacotes
+        # O "npm ci" garante que as versoes do Mac sejam as mesmas do seu PC
+        run: npm ci || npm install --legacy-peer-deps
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
