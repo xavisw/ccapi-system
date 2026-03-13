@@ -6,26 +6,23 @@ jobs:
   publish-tauri:
     permissions:
       contents: write
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [macos-latest, windows-latest]
-    runs-on: ${{ matrix.platform }}
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: setup node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: install Rust stable
-        uses: dtolnay/rust-toolchain@stable
-      - name: install frontend dependencies
-        run: npm install
+      - uses: dtolnay/rust-toolchain@stable
+      - run: npm install
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__
-          releaseName: 'App v__VERSION__'
+          tagName: app-v1.0.3
+          releaseName: 'App v1.0.3'
           releaseDraft: true
-          prerelease: false
+      - name: upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: INSTALADOR-MAC-AQUI
+          path: src-tauri/target/release/bundle/dmg/*.dmg
