@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "title": "CCAPI Administradores",
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "center": true,
+        "devtools": true, 
+        "zoomHotkeysEnabled": false
+      }
+    ]
+  },
+  "build": {
+    "frontendDist": "../src"
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "identifier": "com.ccapi.system",
+  "productName": "CCAPI ADMIN",
+  "version": "1.0.1",
+  "plugins": {
+    "opener": {}
+  }
+}

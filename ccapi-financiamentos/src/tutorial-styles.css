@@ -1,0 +1,542 @@
+/* 
+   SISTEMA DE TUTORIAL INTERATIVO - MOBILE - ISSO AQUI É PRO APP 
+
+/* Overlay escuro de fundo - SEM MOVIMENTO */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 99998;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    /* PREVENIR MOVIMENTO */
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Highlight do elemento - FIXO, SEM MOVIMENTO */
+.tutorial-highlight {
+    position: absolute;
+    background: transparent;
+    border: 3px solid var(--primary-color, #3b82f6);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.3),
+                0 0 10px rgba(59, 130, 246, 0.5);
+    z-index: 99999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    
+    /* CORRE\u00c7\u00c3O PRINCIPAL: IMPEDIR MOVIMENTO/ARRASTE */
+    pointer-events: none !important;
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-user-drag: none !important;
+    -webkit-touch-callout: none !important;
+}
+
+/* Tooltip do tutorial - OTIMIZADO MOBILE */
+.tutorial-tooltip {
+    position: fixed;
+    background: var(--white, #ffffff);
+    border-radius: var(--border-radius-lg, 16px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    z-index: 100000;
+    max-width: 400px;
+    min-width: 300px;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease, top 0.3s ease, left 0.3s ease;
+    
+    /* MOBILE: Garantir visibilidade */
+    pointer-events: auto;
+}
+
+/* MOBILE: Ajustes de responsividade */
+@media (max-width: 768px) {
+    .tutorial-tooltip {
+        max-width: calc(100vw - 30px);
+        min-width: calc(100vw - 30px);
+        /* Garantir que fique dentro da tela */
+        margin: 0;
+    }
+
+    .tutorial-tooltip-title {
+        font-size: 18px !important;
+        line-height: 1.3;
+    }
+
+    .tutorial-tooltip-description {
+        font-size: 14px !important;
+        line-height: 1.5;
+    }
+    
+    .tutorial-tooltip-header {
+        padding: 16px 20px 12px !important;
+    }
+    
+    .tutorial-tooltip-body {
+        padding: 16px 20px !important;
+    }
+    
+    .tutorial-tooltip-footer {
+        padding: 12px 20px 16px !important;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .tutorial-tooltip-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .tutorial-tooltip-actions .btn {
+        flex: 1;
+        min-width: 100px;
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+    }
+    
+    /* Garantir que os bot\u00f5es sejam f\u00e1ceis de tocar */
+    .tutorial-tooltip-actions .btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* GARANTIR QUE O MENU DO DASHBOARD FIQUE ACIMA DO TUTORIAL */
+.dashboard-sidebar.active {
+    z-index: 100001 !important;
+}
+
+.dashboard-sidebar-overlay.active {
+    z-index: 99997 !important;
+}
+
+/* Header do tooltip */
+.tutorial-tooltip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 2px solid var(--gray-100, #f1f5f9);
+}
+
+.tutorial-tooltip-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900, #0f172a);
+    margin: 0;
+    flex: 1;
+}
+
+.tutorial-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--gray-500, #64748b);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition, all 0.3s ease);
+    flex-shrink: 0;
+}
+
+.tutorial-close-btn:hover {
+    background: var(--gray-100, #f1f5f9);
+    color: var(--gray-700, #334155);
+}
+
+/* Body do tooltip */
+.tutorial-tooltip-body {
+    padding: 20px 24px;
+}
+
+.tutorial-tooltip-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--gray-700, #334155);
+    margin: 0;
+}
+
+/* Footer do tooltip */
+.tutorial-tooltip-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--gray-100, #f1f5f9);
+}
+
+.tutorial-step-counter {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-600, #475569);
+}
+
+.tutorial-tooltip-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Modal de boas-vindas do tutorial */
+.tutorial-welcome-content {
+    max-width: 450px;
+    text-align: center;
+    padding: 30px !important;
+    border-radius: 24px !important;
+}
+
+@media (max-width: 768px) {
+    .tutorial-welcome-content {
+        max-width: 90%;
+        padding: 20px !important;
+        margin: 0 15px;
+    }
+
+    .tutorial-welcome-icon {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 24px !important;
+    }
+
+    .tutorial-welcome-header h2 {
+        font-size: 20px !important;
+    }
+
+    .tutorial-feature-item {
+        padding: 8px !important;
+        font-size: 14px !important;
+    }
+    
+    .tutorial-welcome-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .tutorial-welcome-actions .btn {
+        width: 100%;
+    }
+}
+
+.tutorial-welcome-header {
+    margin-bottom: 24px;
+}
+
+.tutorial-welcome-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color, #1e3a8a), var(--secondary-color, #3b82f6));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: tutorialIconBounce 1s ease-in-out infinite;
+}
+
+@keyframes tutorialIconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.tutorial-welcome-icon i {
+    font-size: 40px;
+    color: var(--white, #ffffff);
+}
+
+.tutorial-welcome-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gray-900, #0f172a);
+    margin: 0;
+}
+
+.tutorial-welcome-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.tutorial-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--gray-50, #f8fafc);
+    border-radius: var(--border-radius, 12px);
+}
+
+.tutorial-feature-item i {
+    font-size: 24px;
+    color: var(--success-color, #059669);
+    flex-shrink: 0;
+}
+
+.tutorial-feature-item span {
+    font-size: 15px;
+    color: var(--gray-700, #334155);
+    font-weight: 500;
+}
+
+.tutorial-welcome-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+/* Se\u00e7\u00e3o de Tutorial no dashboard */
+.tutorial-welcome-section {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tutorial-intro-card {
+    background: linear-gradient(135deg, var(--primary-color, #1e3a8a), var(--secondary-color, #3b82f6));
+    color: var(--white, #ffffff);
+    padding: 48px;
+    border-radius: var(--border-radius-lg, 16px);
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-xl, 0 20px 25px -5px rgb(0 0 0 / 0.1));
+}
+
+.tutorial-intro-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.tutorial-intro-icon i {
+    font-size: 40px;
+    color: var(--white, #ffffff);
+}
+
+.tutorial-intro-card h3 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--white, #ffffff);
+}
+
+.tutorial-intro-card p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    opacity: 0.95;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tutorial-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.tutorial-feature-card {
+    background: var(--white, #ffffff);
+    padding: 32px;
+    border-radius: var(--border-radius-lg, 16px);
+    box-shadow: var(--shadow, 0 1px 3px 0 rgb(0 0 0 / 0.1));
+    text-align: center;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.tutorial-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl, 0 20px 25px -5px rgb(0 0 0 / 0.1));
+}
+
+.tutorial-feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color, #1e3a8a), var(--secondary-color, #3b82f6));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.tutorial-feature-icon i {
+    font-size: 28px;
+    color: var(--white, #ffffff);
+}
+
+.tutorial-feature-card h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--gray-900, #0f172a);
+}
+
+.tutorial-feature-card p {
+    font-size: 14px;
+    color: var(--gray-600, #475569);
+    margin: 0;
+}
+
+.tutorial-topics {
+    background: var(--white, #ffffff);
+    padding: 40px;
+    border-radius: var(--border-radius-lg, 16px);
+    box-shadow: var(--shadow, 0 1px 3px 0 rgb(0 0 0 / 0.1));
+}
+
+.tutorial-topics h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--gray-900, #0f172a);
+    text-align: center;
+}
+
+.tutorial-topics-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.tutorial-topic-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--gray-50, #f8fafc);
+    border-radius: var(--border-radius, 12px);
+    transition: var(--transition, all 0.3s ease);
+}
+
+.tutorial-topic-item:hover {
+    background: var(--gray-100, #f1f5f9);
+    transform: translateX(5px);
+}
+
+.tutorial-topic-item i {
+    font-size: 20px;
+    color: var(--success-color, #059669);
+    flex-shrink: 0;
+}
+
+.tutorial-topic-item span {
+    font-size: 15px;
+    color: var(--gray-700, #334155);
+    font-weight: 500;
+}
+
+/* Responsivo Mobile */
+@media (max-width: 768px) {
+    .tutorial-intro-card {
+        padding: 32px 24px;
+    }
+
+    .tutorial-intro-card h3 {
+        font-size: 24px;
+    }
+
+    .tutorial-intro-card p {
+        font-size: 16px;
+    }
+
+    .tutorial-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tutorial-topics {
+        padding: 24px;
+    }
+
+    .tutorial-topics-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tema Escuro */
+.dashboard.dark-theme .tutorial-tooltip {
+    background: var(--dashboard-card-bg, #1e293b);
+}
+
+.dashboard.dark-theme .tutorial-tooltip-title {
+    color: var(--dashboard-text, #f8fafc);
+}
+
+.dashboard.dark-theme .tutorial-tooltip-description {
+    color: var(--dashboard-text-light, #cbd5e1);
+}
+
+.dashboard.dark-theme .tutorial-tooltip-header {
+    border-bottom-color: var(--gray-700, #334155);
+}
+
+.dashboard.dark-theme .tutorial-tooltip-footer {
+    border-top-color: var(--gray-700, #334155);
+}
+
+.dashboard.dark-theme .tutorial-close-btn {
+    color: var(--dashboard-text-light, #cbd5e1);
+}
+
+.dashboard.dark-theme .tutorial-close-btn:hover {
+    background: var(--dashboard-bg, #0f172a);
+    color: var(--dashboard-text, #f8fafc);
+}
+
+.dashboard.dark-theme .tutorial-topics {
+    background: var(--dashboard-card-bg, #1e293b);
+}
+
+.dashboard.dark-theme .tutorial-topics h3 {
+    color: var(--dashboard-text, #f8fafc);
+}
+
+.dashboard.dark-theme .tutorial-topic-item {
+    background: var(--dashboard-bg, #0f172a);
+}
+
+.dashboard.dark-theme .tutorial-topic-item:hover {
+    background: var(--gray-800, #1e293b);
+}
+
+.dashboard.dark-theme .tutorial-topic-item span {
+    color: var(--dashboard-text-light, #cbd5e1);
+}
+
+.dashboard.dark-theme .tutorial-feature-item {
+    background: var(--dashboard-bg, #0f172a);
+}
+
+.dashboard.dark-theme .tutorial-feature-item span {
+    color: var(--dashboard-text-light, #cbd5e1);
+}

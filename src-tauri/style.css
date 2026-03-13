@@ -1,0 +1,24 @@
+/* 1. Reset para garantir que o fundo encoste nas bordas da tela */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Ajuste na sua classe */
+.auth-container {
+    min-height: 100vh; /* Garante que cubra a altura toda */
+    width: 100%;       /* Garante que cubra a largura toda */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    
+    /* ESCOLHA APENAS UMA COR AQUI: */
+    background-color: blueviolet; 
+}
+
+/* Opcional: Se quiser que o corpo do site também tenha essa cor */
+body {
+    background-color: blueviolet;
+}

@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Soluções financeiras para transporte e crédito com garantia de veículo. Atendimento rápido e personalizado.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https: blob:; connect-src 'self' https://ccapi.com.br https://*.googleapis.com https://*.firebaseio.com https://viacep.com.br ipc: http://tauri.localhost http://localhost https://localhost tauri: asset: https://asset.localhost;">
+    <title>Ccapi Financiamentos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tutorial-styles.css">
+    <link rel="icon" href="IMG/Logo Ccapi-Photoroom.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos para Avatar de Perfil */
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            margin: 0 auto 20px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-avatar-large:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-profile-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            color: white;
+            overflow: hidden;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .user-profile-circle:hover {
+            transform: scale(1.1);
+        }
+
+        .user-profile-circle:active, .user-profile-circle:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .user-profile-circle img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .detail-info label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin: 0;
+            display: block;
+        }
+        .detail-info span {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: block;
+        }
+        .instagram-feed {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .instagram-feed-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .instagram-feed-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .instagram-feed-header a {
+            font-size: 0.8rem;
+            color: #e4405f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        /* Scroll horizontal de cards de notícias */
+        .instagram-posts {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding: 4px 2px 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #e4405f #f3f4f6;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        .instagram-posts::-webkit-scrollbar {
+            height: 4px;
+        }
+        .instagram-posts::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 4px;
+        }
+        .instagram-posts::-webkit-scrollbar-thumb {
+            background: #e4405f;
+            border-radius: 4px;
+        }
+        /* Card de notícia estilo Instagram */
+        .insta-news-card {
+            min-width: 230px;
+            max-width: 230px;
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            scroll-snap-align: start;
+            transition: transform 0.25s, box-shadow 0.25s;
+            border: 1px solid #f0f0f0;
+        }
+        .insta-news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.13);
+        }
+        .insta-news-card .card-img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, #f09433 0%, #d62976 100%);
+        }
+        .insta-news-card .card-img-placeholder {
+            width: 100%;
+            height: 130px;
+            background: linear-gradient(135deg, #f09433 0%, #d62976 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            position: relative;
+            transition: opacity 0.3s;
+        }
+        .insta-news-card .card-img-placeholder:hover {
+            opacity: 0.8;
+        }
+        /* Estilos para contenteditable removidos - campos agora são somente leitura */
+        .insta-news-card .card-body {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .insta-news-card .card-category {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #e4405f;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .insta-news-card .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .insta-news-card .card-desc {
+            font-size: 0.75rem;
+            color: #6b7280;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .insta-news-card .card-footer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+        .insta-news-card .card-footer i {
+            color: #e4405f;
+            font-size: 0.75rem;
+        }
+        /* Estilo antigo mantido para fallback */
+        .instagram-post {
+            min-width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f09433 0%, #d62976 100%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .instagram-post:hover {
+            transform: scale(1.02);
+        }
+        .instagram-post i {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .offline-badge {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #f59e0b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 9999;
+            display: none;
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a8a">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registrado!', reg))
+        .catch(err => console.log('Erro ao registrar SW:', err));
+    });
+  }
+</script>
+</head>
+<body>
+    <div id="offlineBadge" class="offline-badge">
+        <i class="fas fa-wifi-slash"></i> Modo Offline
+    </div>
+
+    <!-- Cabeçalho Estilo App com Toque Original -->
+    <header class="app-header">
+        <div class="app-header-top">
+            <div class="header-logo-app">
+                <img src="IMG/Logo Ccapi-Photoroom.png" alt="Ccapi" class="logo-img">
+            </div>
+            <div class="app-header-actions">
+                <div class="user-profile-circle" id="headerProfileCircle" title="Minha Conta">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+        <div class="app-header-welcome">
+            <p class="welcome-label">Bem-vindo à Ccapi</p>
+            <h2>Olá, <span id="welcomeUserName">Visitante</span></h2>
+            <p class="user-document-sub" id="welcomeUserDoc">---</p>
+        </div>
+    </header>
+
+    <!-- Botão para abrir sidebar (Oculto no novo design) -->
+    <button id="sidebarToggle" class="sidebar-toggle" style="display: none;">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <img src="IMG/Logo Ccapi-Photoroom.png" alt="Ccap Logo" class="sidebar-logo-img logo-dinamica">
+            <h3>Ccapi</h3>
+        </div>
+        <button id="loginBtnSidebar" class="sidebar-item">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Login</span>
+        </button>
+        <button id="registerBtnSidebar" class="sidebar-item">
+            <i class="fas fa-user-plus"></i>
+            <span>Cadastrar</span>
+        </button>
+        <button id="dashboardBtnSidebar" class="sidebar-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Painel</span>
+        </button>
+        <button class="sidebar-item menu-item" data-section="support">
+            <i class="fas fa-headset"></i>
+            <span>Suporte</span>
+        </button>
+    </nav>
+
+    <!-- Overlay da sidebar -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- Main Content Estilo App -->
+    <main class="app-content">
+        <div class="hero-wave-bg"></div>
+
+        <!-- Card Principal (Painel) com estilo refinado -->
+        <section class="app-card main-painel-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Meu Painel</span>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card-body">
+                <p class="card-subtitle">Gerencie suas propostas e simulações</p>
+                <button id="accessDashboardBtn" class="btn btn-partner btn-painel-access full-width">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Acessar Painel
+                </button>
+            </div>
+        </section>
+
+        <!-- Feed do Instagram como Notícias -->
+        <section class="instagram-feed">
+            <div class="instagram-feed-header">
+                <h3>
+                    <i class="fab fa-instagram" style="color: #372cd3;"></i>
+                    Instagram Ccapi
+                </h3>
+                <a href="https://www.instagram.com/ccapifinanciamentos/" target="_blank" class="external-link">
+                    <i class="fab fa-instagram"></i> @ccapifinanciamentos
+                </a>
+            </div>
+            <div class="instagram-posts" id="instagramPosts">
+                <!-- Post 1 -->
+                <div class="insta-news-card">
+                    <img src="IMG/POST1.jpeg" alt="Post 1" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">Esse reconhecimento é de todo nós.💘</div>
+                        <div class="card-desc">Nossa gratidão por cada parceria, cada incentivo e cada mão estendida ao longo dessa caminhada.</div>
+                    </div>
+                </div>
+                <!-- Post 2 -->
+                <div class="insta-news-card">
+                    <img src="IMG/POST3.jpeg" alt="Post 2" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">Prestigiando grandes momentos.🚚</div>
+                        <div class="card-desc">A CCAPI marcou presença na inauguração da Rabelo Caminhôes</div>
+                    </div>
+                </div>
+                <!-- Post 3 -->
+                <div class="insta-news-card">
+                    <img src="IMG/POST5.jpeg" alt="Post 3" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">Que venham novos começos, mais conquistas e muitos motivos para celebrar✨</div>
+                        <div class="card-desc">2026 chega com gratidão pelo caminho percorrido....</div>
+                    </div>
+                </div>
+                <!-- Post 4 -->
+                <div class="insta-news-card">
+                    <img src="IMG/POST6.jpeg" alt="Post 4" class="card-img">
+                    <div class="card-body">
+                        <div class="card-title">Comece 2026 com planejamento, economia e mobilidade</div>
+                        <div class="card-desc">A CCAPI, em parceria com o Banco Santander, oferece condições especiais para você financiar sua moto com segurança, transparência e agilidade.🏍</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Atalhos Rápidos (Scroll Horizontal) -->
+        <section class="quick-actions-container">
+            <div class="quick-actions">
+                <div class="action-item" id="becomePartnerBtn">
+                    <div class="action-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <span>Parceiro</span>
+                </div>
+                <div class="action-item service-painel-btn" data-testid="service-2-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <span>Proposta</span>
+                </div>
+                <div class="action-item service-painel-btn" data-testid="service-1-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <span>Ssimular r</span>
+                </div>
+                <div class="action-item" id="registerBtnHeader">
+                    <div class="action-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <span>Cadastrar</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meus Cartões / Atalhos em Lista -->
+        <section class="app-card my-shortcuts-card">
+            <div class="shortcut-item" id="shortcutProfileBtn" style="cursor: pointer;">
+                <i class="fas fa-user-cog"></i>
+                <span>Minha Conta e Perfil</span>
+            </div>
+        </section>
+
+        <!-- Seção de Novidades (Cards Grandes) -->
+        <section class="app-news">
+            <div class="news-card">
+                <p><strong>Ccapi Financiamentos</strong></p>
+                <p>Relaxa! Estamos cuidando do crédito para você.</p>
+            </div>
+            <div class="news-card">
+                <p><strong>Atendimento Rápido</strong></p>
+                <p>Resposta em até 10 minutos para suas solicitações.</p>
+            </div>
+        </section>
+
+
+    <!-- Services Section (Oculto no mobile para novo design) -->
+    <section id="services" class="services" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos<span class="text-primary"> Serviços</span></h2>
+                <p>Soluções financeiras completas para impulsionar seu negócio no setor de transporte</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card featured">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Financiamento Simulado</h3>
+                    <p>Simule o seu financiamento em veiculos leves, pesados, moto e imobiliário</p>
+                    <div class="service-benefits">
+                        <h4>Vantagens:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Simulação financiamento</li>
+                            <li><i class="fas fa-check"></i> Resposta imediata</li>
+                            <li><i class="fas fa-check"></i> Documentação simplificada</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary service-painel-btn" data-testid="service-1-btn">
+                        <i class="fas fa-calculator"></i>
+                        Simular
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Nova proposta</h3>
+                    <p>Faça seu financiamento rápido e sem burocracia. Envie-nos uma propostas.</p>
+                    <div class="service-benefits">
+                        <h4>Vantagens:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Acompanhamento em tempo real</li>
+                            <li><i class="fas fa-check"></i> Organização documental</li>
+                            <li><i class="fas fa-check"></i> Segurança dos dados</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-outline service-painel-btn" data-testid="service-2-btn">
+                        <i class="fas fa-file-alt"></i>
+                        Criar Proposta
+                    </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Conversar com especialistas</h3>
+                    <p>Entre em contato com nossa equipe pelo nosso chat.</p>
+                    <div class="service-benefits">
+                        <h4>Vantagens:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Resolvemos para você</li>
+                            <li><i class="fas fa-check"></i> Rápido e sem problemas</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-outline service-painel-btn" data-testid="service-3-btn">
+                        <i class="fas fa-comments"></i>
+                        Solicitar Consulta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAINEL -->
+    
+    <!-- PAINEL (DASHBOARD) CORRIGIDO -->
+    <div id="painel" class="dashboard">
+        <div class="dashboard-container">
+            <!-- Cabeçalho do Painel -->
+            <header class="dashboard-header">
+                <div class="dashboard-nav">
+                    <div class="nav-logo">
+                        <img src="IMG/Logo Ccapi-Photoroom.png" alt="Ccapi" style="height: 35px; width: auto;">
+                        <span style="font-weight: 700; color: var(--primary-color); margin-left: 10px;" class="desktop-only">PAINEL CCAPI</span>
+                    </div>
+                    <div class="dashboard-user" style="display: flex; align-items: center; gap: 15px;">
+                        <button id="dashboardMenuToggle" class="dashboard-menu-toggle" style="display: none;">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="user-info-wrapper desktop-only">
+                            <span>Bem-vindo, <strong id="userName">Parceiro</strong></span>
+                        </div>
+                        <button id="themeToggleBtn" class="theme-toggle" title="Alternar tema" style="background: var(--gray-100); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                        <button id="dashboardClose" onclick="hidePainel()" class="dashboard-close" title="Fechar Painel" style="background: #fee2e2; color: #ef4444; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Sidebar -->
+                <aside class="dashboard-sidebar" id="dashboardSidebar">
+                    <nav class="dashboard-menu">
+                        <button class="menu-item active" data-section="overview">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Visão Geral</span>
+                        </button>
+                        <button class="menu-item" data-section="new-proposal">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Nova Proposta</span>
+                        </button>
+                        <button class="menu-item" data-section="proposals">
+                            <i class="fas fa-list-ul"></i>
+                            <span>Minhas Propostas</span>
+                        </button>
+                        <button class="menu-item" data-section="simulation">
+                            <i class="fas fa-calculator"></i>
+                            <span>Simulação</span>
+                        </button>
+                        <button class="menu-item" data-section="financial-health">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>Saúde Financeira</span>
+                        </button>
+                        <button class="menu-item" data-section="credit-score">
+                            <i class="fas fa-star"></i>
+                            <span>Score de Crédito</span>
+                        </button>
+                        <button class="menu-item" data-section="payment-timeline">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Linha de Quitação</span>
+                        </button>
+                        <button class="menu-item" data-section="chats">
+                            <i class="fas fa-comments"></i>
+                            <span>Especialistas</span>
+                        </button>
+                        <button class="menu-item" data-section="support">
+                            <i class="fas fa-headset"></i>
+                            <span>Suporte</span>
+                        </button>
+                        <button class="menu-item" data-section="tutorial">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Tutorial</span>
+                        </button>
+                    </nav>
+                    
+                    <div class="sidebar-footer" style="margin-top: auto; padding: 15px; border-top: 1px solid var(--gray-100);">
+                        <!-- <button id="logoutBtnDashboard" --> <div style="display:none;" class="menu-item" style="color: #ef4444; width: 100%; border-radius: 8px;">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair da Conta</span>
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- Área Principal -->
+                <main class="dashboard-main">
+
+                    <!-- Visão Geral -->
+                    <section id="overview" class="painel-section active">
+                        <div class="section-header">
+                            <h2>Visão Geral</h2>
+                            <p>Acompanhe suas estatísticas e propostas recentes</p>
+                        </div>
+
+                        <!-- Aviso de Edição -->
+                        <div id="editWarningBox" style="background: rgba(30, 58, 138, 0.1); border-left: 4px solid #1e3a8a; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: none; align-items: center; gap: 15px;">
+                            <div style="font-size: 1.5rem; color: #1e3a8a;">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; color: #1e3a8a; font-size: 1rem;">Prazo para Edição</h4>
+                                <p style="margin: 5px 0 0; font-size: 0.9rem; color: #444;">Lembre-se: você pode editar suas propostas enviadas em até <strong>3 dias</strong> na aba <a href="#" onclick="document.querySelector('[data-section=\'proposals\']').click(); return false;" style="color: #1e3a8a; font-weight: 600; text-decoration: underline;">Propostas Enviadas</a>.</p>
+                            </div>
+                        </div>
+
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalProposals">0</h3>
+                                    <p>Total de Propostas</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="approvedProposals">0</h3>
+                                    <p>Propostas Aprovadas</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="pendingProposals">0</h3>
+                                    <p>Propostas Pendentes</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recent-proposals">
+                            <h3>Propostas Recentes</h3>
+                            <div id="recentProposalsList" class="proposals-list">
+                                <p class="no-data">Nenhuma proposta encontrada.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Nova Proposta -->
+                    <section id="new-proposal" class="painel-section">
+                        <div class="section-header">
+                            <h2>Nova Proposta</h2>
+                            <p>Preencha os dados para criar uma nova proposta de financiamento</p>
+                        </div>
+
+                        <div class="proposal-tabs" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <button type="button" class="btn btn-outline active-tab" id="tabPF" onclick="switchProposalTab('PF')" style="flex: 1;">Pessoa Física</button>
+                            <button type="button" class="btn btn-outline" id="tabPJ" onclick="switchProposalTab('PJ')" style="flex: 1;">Pessoa Jurídica</button>
+                        </div>
+
+                        <form id="proposalForm" class="proposal-form">
+                            <input type="hidden" id="clientType" value="PF">
+                            
+                            <!-- Container Pessoa Física -->
+                            <div id="containerPF">
+                                <div class="form-section">
+                                    <h3>Dados do Cliente (PF)</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group"><label>Nome Completo</label><input type="text" id="clientNamePF"></div>
+                                        <div class="form-group"><label>Data de Nascimento</label><input type="text" id="clientBirthDatePF" placeholder="DD/MM/AAAA"></div>
+                                        <div class="form-group"><label>Naturalidade</label><input type="text" id="clientNaturalityPF"></div>
+                                        <div class="form-group"><label>Nome da Mãe</label><input type="text" id="motherNamePF"></div>
+                                        <div class="form-group"><label>Nome do Pai</label><input type="text" id="fatherNamePF"></div>
+                                        <div class="form-group"><label>CPF</label><input type="text" id="clientCpfPF"></div>
+                                        <div class="form-group"><label>Número do RG</label><input type="text" id="clientRgPF"></div>
+                                        <div class="form-group"><label>UF do Documento</label><input type="text" id="clientRgUfPF"></div>
+                                        <div class="form-group"><label>CNPJ (Opcional)</label><input type="text" id="clientCnpjPF"></div>
+                                        <div class="form-group">
+                                            <label>Possui CNH na categoria?</label>
+                                            <select id="clientCnhPF"><option value="">Selecione...</option><option value="sim">Sim</option><option value="nao">Não</option></select>
+                                        </div>
+                                        <div class="form-group"><label>Telefone</label><input type="tel" id="clientPhonePF"></div>
+                                        <div class="form-group"><label>Email</label><input type="email" id="clientEmailPF"></div>
+                                        <div class="form-group"><label>Profissão</label><input type="text" id="clientProfessionPF"></div>
+                                        <div class="form-group"><label>Renda</label><input type="text" id="clientIncomePF"></div>
+                                        <div class="form-group"><label>Contato de Referência</label><input type="text" id="clientReferencePF"></div>
+                                        <div class="form-group"><label>CEP</label><input type="text" id="clientCepPF" placeholder="00000-000"></div>
+                                        <div class="form-group" style="grid-column: span 2;"><label>Endereço Completo</label><input type="text" id="clientAddressPF" readonly placeholder="Digite o CEP para preencher automaticamente"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Container Pessoa Jurídica -->
+                            <div id="containerPJ" style="display: none;">
+                                <div class="form-section">
+                                    <h3>Dados da Empresa (PJ)</h3>
+                                    <div class="form-grid">
+                                        <div class="form-group"><label>Razão Social *</label><input type="text" id="clientNamePJ"></div>
+                                        <div class="form-group"><label>CNPJ *</label><input type="text" id="clientCnpjPJ"></div>
+                                        <div class="form-group"><label>Data de Abertura</label><input type="text" id="clientBirthDatePJ" placeholder="DD/MM/AAAA"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-section">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                        <h3>Dados dos Sócios</h3>
+                                        <button type="button" class="btn btn-sm btn-outline" onclick="addSocio()">+ Adicionar Sócio</button>
+                                    </div>
+                                    <div id="sociosContainer">
+                                        <!-- Sócios serão adicionados aqui -->
+                                    </div>
+                                    <div class="form-grid" style="margin-top: 15px;">
+                                        <div class="form-group"><label>CPF do Responsável:</label><input type="text" id="clientDocumentPJ" placeholder="000.000.000-00"></div>
+                                        <div class="form-group">
+                                            <label>Possui CNH na categoria?</label>
+                                            <select id="clientCnhPJ"><option value="">Selecione...</option><option value="sim">Sim</option><option value="nao">Não</option></select>
+                                        </div>
+                                        <div class="form-group"><label>Telefone</label><input type="tel" id="clientPhonePJ"></div>
+                                        <div class="form-group"><label>Email</label><input type="email" id="clientEmailPJ"></div>
+                                        <div class="form-group"><label>Profissão</label><input type="text" id="clientProfessionPJ"></div>
+                                        <div class="form-group"><label>Renda</label><input type="text" id="clientIncomePJ"></div>
+                                        <div class="form-group"><label>Contato de Referência</label><input type="text" id="clientReferencePJ"></div>
+                                        <div class="form-group"><label>CEP</label><input type="text" id="clientCepPJ" placeholder="00000-000"></div>
+                                        <div class="form-group" style="grid-column: span 2;"><label>Endereço Completo</label><input type="text" id="clientAddressPJ" readonly placeholder="Digite o CEP para preencher automaticamente"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dados do Veículo (Comum) -->
+                            <div class="form-section">
+                                <h3>Dados do Veículo</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Tipo de Veículo</label>
+                                        <select id="vehicleType"><option value="">Selecione...</option><option value="leve">Leve</option><option value="pesado">Pesado</option><option value="moto">Moto</option></select>
+                                    </div>
+                                    <div class="form-group"><label>Marca</label><input type="text" id="vehicleBrand"></div>
+                                    <div class="form-group"><label>Modelo</label><input type="text" id="vehicleModel"></div>
+                                    <div class="form-group"><label>Ano de Fabricação</label>
+                                        <select id="vehicleYearManufacture">
+                                            <option value="">Selecione</option>
+                                            <!-- Preenchido via JS -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group"><label>Ano do Modelo</label>
+                                        <select id="vehicleYearModel">
+                                            <option value="">Selecione</option>
+                                            <!-- Preenchido via JS -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group"><label>Valor do Veículo</label><input type="text" id="vehicleValue"></div>
+                                    <div class="form-group"><label>Placa do Veículo</label><input type="text" id="vehiclePlate"></div>
+                                    <div class="form-group">
+                                        <label>Condição</label>
+                                        <select id="vehicleCondition"><option value="">Selecione...</option><option value="novo">Novo</option><option value="seminovo">Seminovo</option><option value="usado">Usado</option></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dados do Financiamento (Comum) -->
+                            <div class="form-section">
+                                <h3>Dados do Financiamento</h3>
+                                <div class="form-grid">
+                                    <div class="form-group"><label>Valor do Financiamento</label><input type="text" id="financeValue"></div>
+                                    <div class="form-group"><label>Entrada</label><input type="text" id="downPayment"></div>
+                                    <div class="form-group">
+                                        <label>Tipo do Produto</label>
+                                        <select id="financeType"><option value="">Selecione...</option><option value="financiamento">Financiamento</option><option value="refinanciamento">Refinanciamento</option></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações Adicionais (Comum) -->
+                            <div class="form-section">
+                                <h3>Informações Adicionais</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Especialista Responsável</label>
+                                        <select id="specialist"><option value="">Selecione...</option><option value="fabricio">Fabrício</option><option value="neto">Neto</option><option value="wandreyna">Wandreyna</option><option value="eder">Éder</option><option value="suzana">Suzana</option></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documentos (Pessoa Física) -->
+                            <div class="form-section" id="documentosPF">
+                                <h3>Documentos Necessários (PF)</h3>
+                                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px;">Anexe os documentos em PDF ou imagem (JPG, PNG)</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="cnhFrenteFile">CNH - Frente</label>
+                                        <input type="file" id="cnhFrenteFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="cnhFrentePreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cnhVersoFile">CNH - Verso</label>
+                                        <input type="file" id="cnhVersoFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="cnhVersoPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comprovanteResidenciaFile">Comprovante de Endereco</label>
+                                        <input type="file" id="comprovanteResidenciaFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="comprovanteEnderecoPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rgFrenteFile">RG - Frente</label>
+                                        <input type="file" id="rgFrenteFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="rgFrentePreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rgVersoFile">RG - Verso</label>
+                                        <input type="file" id="rgVersoFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="rgVersoPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comprovanteBancoFile">Extrato Bancario</label>
+                                        <input type="file" id="comprovanteBancoFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="comprovanteBancoPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documentos (Pessoa Jurídica) -->
+                            <div class="form-section" id="documentosPJ" style="display: none;">
+                                <h3>Documentos Necessários (PJ)</h3>
+                                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px;">Anexe os documentos em PDF ou imagem (JPG, PNG)</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="comprovantePJFile">Comprovante de PJ (Contrato Social/CNPJ)</label>
+                                        <input type="file" id="comprovantePJFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="comprovantePJPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="extratoBancarioFile">Extrato Bancário</label>
+                                        <input type="file" id="extratoBancarioFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="extratoBancarioPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comprovanteEnderecoFilePJ">Comprovante de Endereco da Empresa</label>
+                                        <input type="file" id="comprovanteEnderecoFilePJ" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="comprovanteEnderecoPreviewPJ" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contratoSocialFile">Contrato Social</label>
+                                        <input type="file" id="contratoSocialFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="contratoSocialPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cnpjFile">CNPJ</label>
+                                        <input type="file" id="cnpjFile" accept=".pdf,.jpg,.jpeg,.png" />
+                                        <div id="cnpjPreview" class="file-preview" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-light);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Observações Adicionais -->
+                            <div class="form-section">
+                                <h3>Observações Adicionais</h3>
+                                <div class="form-group">
+                                    <label for="proposalNotes">Observações (Opcional)</label>
+                                    <textarea id="proposalNotes" rows="4" placeholder="Digite aqui qualquer informação adicional importante sobre a proposta..." style="width: 100%; padding: 12px; border: 1px solid var(--gray-200); border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-outline" id="saveDraftBtn">Salvar Rascunho</button>
+                                <button type="submit" class="btn btn-primary">Enviar Proposta</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- Propostas Enviadas -->
+                    <section id="proposals" class="painel-section">
+                        <div class="section-header">
+                            <h2>Propostas Enviadas</h2>
+                            <p>Acompanhe o status de todas as suas propostas. <br> <small style="color: var(--primary-color); font-weight: 600;">⚠️ Você tem até 3 dias após o envio para solicitar edições.</small></p>
+                        </div>
+
+                        <div class="proposals-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Cliente</th>
+                                        <th>Documento</th>
+                                        <th>Veículo</th>
+                                        <th>Valor</th>
+                                        <th>Especialista</th>
+                                                                               <th>Status</th>
+                                        <th>Data</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="proposalsTableBody">
+                                    <tr class="no-proposals">
+                                        <td colspan="9">Nenhuma proposta encontrada. Crie sua primeira proposta!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Simulação -->
+                    <div id="simulation" class="painel-section">
+                        <div class="section-header">
+                            <h2>
+                                <i class="fas fa-calculator"></i>
+                                Simulação de Financiamento
+                            </h2>
+                            <p>Simule seu financiamento de forma rápida e inteligente com dados atualizados</p>
+                        </div>
+
+                        <div class="simulation-container">
+                            <form id="financingSimulationForm" class="simulation-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="simCpf">
+                                            <i class="fas fa-id-card"></i>
+                                            CPF *
+                                        </label>
+                                        <input type="text" id="simCpf" placeholder="000.000.000-00" maxlength="14" required data-testid="sim-cpf-input">
+                                        <small>Digite seu CPF para análise de crédito</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="simBirthDate">
+                                            <i class="fas fa-birthday-cake"></i>
+                                            Data de Nascimento *
+                                        </label>
+                                        <input type="text" id="simBirthDate" placeholder="DD/MM/AAAA" maxlength="10" required data-testid="sim-birthdate-input">
+                                        <small>Formato: DD/MM/AAAA (mínimo 18 anos)</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="simVehiclePlate">
+                                            <i class="fas fa-car"></i>
+                                            Placa do Veículo (Opcional)
+                                        </label>
+                                        <input type="text" id="simVehiclePlate" placeholder="ABC-1234" maxlength="8" data-testid="sim-plate-input">
+                                        <small>Caso já possua o veículo</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="simVehicleBrandModel">
+                                            <i class="fas fa-car-side"></i>
+                                            Marca/Modelo do Veículo *
+                                        </label>
+                                        <input type="text" id="simVehicleBrandModel" placeholder="Ex: Fiat Strada 2024" required data-testid="sim-vehicle-input">
+                                        <small>Informe marca, modelo e ano</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="simVehicleValue">
+                                            <i class="fas fa-dollar-sign"></i>
+                                            Valor do Veículo
+                                        </label>
+                                        <input type="text" id="simVehicleValue" placeholder="R$ 0,00" required>
+                                        <small>Valor total do veículo</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="simDownPayment">
+                                            <i class="fas fa-hand-holding-usd"></i>
+                                            Valor de Entrada (Opcional)
+                                        </label>
+                                        <input type="text" id="simDownPayment" placeholder="R$ 0,00">
+                                        <small>Deixe em branco se não tiver entrada</small>
+                                    </div>
+                                </div>
+
+                                <div class="simulation-info-box">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div>
+                                        <strong>Como funciona?</strong>
+                                        <p>Nós analisamos seus dados e fazemos um calculo fornecendo um valor base de parcelas.</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" id="simulateBtn" class="btn btn-primary btn-large">
+                                        <i class="fas fa-magic"></i>
+                                        Simular financiamento
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Loading -->
+                            <div id="simulationLoading" class="simulation-loading" style="display: none;">
+                                <div class="loading-spinner"></div>
+                                <p>Gerando sua simulação...</p>
+                                <small>Analisando melhores taxas dos bancos brasileiros</small>
+                            </div>
+
+                            <!-- Resultados -->
+                            <div id="simulationResults" class="simulation-results" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Saúde Financeira -->
+                    <section id="financial-health" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-heartbeat"></i> Saúde Financeira</h2>
+                            <p>Descubra se a parcela do seu financiamento cabe no seu bolso</p>
+                        </div>
+
+                        <div class="financial-health-container">
+                            <div class="health-info-box">
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <strong>Como funciona?</strong>
+                                    <p>Você nos diz quanto ganha por mês e o valor da parcela que está pensando. A gente calcula a porcentagem da sua renda que vai ser comprometida e te mostra se está numa boa ou se é melhor repensar.</p>
+                                    <p style="margin-top: 10px;"><strong>Dica:</strong> Os bancos preferem quando a parcela não passa de 30% da sua renda. Quanto menor, melhor suas chances de aprovação! 😉</p>
+                                </div>
+                            </div>
+
+                            <form id="financialHealthForm" class="health-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="monthlyIncome">
+                                            <i class="fas fa-dollar-sign"></i>
+                                            Qual sua renda mensal? *
+                                        </label>
+                                        <input type="text" id="monthlyIncome" placeholder="R$ 0,00" required data-testid="monthly-income-input">
+                                        <small>Digite quanto você ganha por mês</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="installmentValue">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                            Valor da parcela do financiamento *
+                                        </label>
+                                        <input type="text" id="installmentValue" placeholder="R$ 0,00" required data-testid="installment-value-input">
+                                        <small>Quanto você vai pagar por mês</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-large" data-testid="calculate-health-btn">
+                                        <i class="fas fa-heartbeat"></i>
+                                        Verificar Minha Saúde Financeira
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Resultado da Saúde Financeira -->
+                            <div id="healthResult" class="health-result" style="display: none;">
+                                <div id="healthCard" class="health-card">
+                                    <div class="health-card-header">
+                                        <i class="fas fa-check-circle"></i>
+                                        <h3 id="healthStatus">Crédito Saudável!</h3>
+                                    </div>
+                                    <div class="health-card-body">
+                                        <div class="health-percentage">
+                                            <span class="percentage-value" id="commitmentPercentage">0%</span>
+                                            <span class="percentage-label">da sua renda comprometida</span>
+                                        </div>
+                                        <p id="healthMessage" class="health-message">Grandes chances de aprovação.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Gráfico -->
+                                <div class="health-chart-container" style="width: 100%; margin: 20px 0;"></div>
+
+                                <!-- Informações adicionais -->
+                                <div class="health-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Renda Mensal:</span>
+                                        <span class="detail-value" id="detailIncome">R$ 0,00</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Parcela:</span>
+                                        <span class="detail-value" id="detailInstallment">R$ 0,00</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Renda Disponível:</span>
+                                        <span class="detail-value" id="detailAvailable">R$ 0,00</span>
+                                    </div>
+                                </div>
+
+                                <button id="newHealthCheckBtn" class="btn btn-outline">
+                                    <i class="fas fa-redo"></i>
+                                    Fazer Nova Verificação
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Simulador de Score de Crédito -->
+                    <section id="credit-score" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-star"></i> Simulador de Score de Crédito</h2>
+                            <p>Calcule seu score de crédito com base em seus dados financeiros</p>
+                        </div>
+
+                           <div class="credit-score-container">
+                            <div class="health-info-box score-info-box-custom">
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <strong>Como funciona?</strong>
+                                    <p>Este é um simulador de calculos matematicos que analisa seus dados financeiros e gera um score estimado. O resultado é uma simulação educativa para ajudá-lo a entender melhor sua situação de crédito. O score real pode variar de acordo com avaliações completas de instituições financeiras.</p>
+                                    <p style="margin-top: 10px;"><strong>Dica:</strong> Quanto maior seu score, melhores são suas chances de aprovação em operações de crédito! 😊</p>
+                                    <strong> 🚨 Aviso!</strong>
+                                    <p>O score real pode variar de acordo com avaliações completas de instituições financeiras. Lembrando isso é apenas uma simulação.</p>
+                                </div>
+                            </div>
+
+
+                            <form id="creditScoreForm" class="score-form">
+                                <!-- Pagamento de Contas -->
+                                <div class="form-group">
+                                    <label for="billPayment">
+                                        <i class="fas fa-calendar-check"></i>
+                                        Pagamento de Contas *
+                                    </label>
+                                    <select id="billPayment" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="always">Sempre em dia</option>
+                                        <option value="sometimes">Às vezes atrasa</option>
+                                        <option value="many">Muitas dívidas</option>
+                                    </select>
+                                    <small>Como você costuma pagar suas contas?</small>
+                                </div>
+
+                                <!-- Uso de Cartão de Crédito -->
+                                <div class="form-group">
+                                    <label for="creditCardUsage">
+                                        <i class="fas fa-credit-card"></i>
+                                        Uso de Cartão de Crédito *
+                                    </label>
+                                    <select id="creditCardUsage" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="no-use">Não uso</option>
+                                        <option value="full-payment">Pago total</option>
+                                        <option value="partial-payment">Pago parcial/mínimo</option>
+                                    </select>
+                                    <small>Como você utiliza seu cartão de crédito?</small>
+                                </div>
+
+                                <!-- Nome Limpo -->
+                                <div class="form-group">
+                                    <label for="cleanName">
+                                        <i class="fas fa-check-square"></i>
+                                        Nome Limpo *
+                                    </label>
+                                    <select id="cleanName" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="yes">Sim</option>
+                                        <option value="no">Não</option>
+                                    </select>
+                                    <small>Seu nome está limpo (sem negativações)?</small>
+                                </div>
+
+                                <!-- Cadastro Positivo -->
+                                <div class="form-group">
+                                    <label for="positiveCadastro">
+                                        <i class="fas fa-database"></i>
+                                        Cadastro Positivo *
+                                    </label>
+                                    <select id="positiveCadastro" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="active">Ativo</option>
+                                        <option value="inactive">Inativo</option>
+                                    </select>
+                                    <small>Você está registrado no Cadastro Positivo?</small>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" id="calculateScoreBtn" class="btn btn-primary btn-large" data-testid="calculate-score-btn" onclick="return window.calculateScoreGlobal();">
+                                        <i class="fas fa-calculator"></i>
+                                        Calcular Meu Score
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Resultado do Score -->
+                            <div id="scoreResult" class="score-result" style="display: none;">
+                                <div id="scoreCard" class="score-card">
+                                    <div class="score-card-header">
+                                        <h3>Seu Score de Crédito</h3>
+                                    </div>
+                                    <div class="score-card-body">
+                                        <div class="score-display">
+                                            <div class="score-circle">
+                                                <span class="score-value" id="scoreValue">0</span>
+                                                <span class="score-label">pontos</span>
+                                            </div>
+                                            <div class="score-range" id="scoreRange"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Detalhes da Pontuação -->
+                                <div class="score-breakdown">
+                                    <h4>Detalhamento da Pontuação</h4>
+                                    <div class="breakdown-items">
+                                        <div class="breakdown-item">
+                                            <span class="item-label">Nome Limpo:</span>
+                                            <span class="item-value" id="breakdownCleanName">-</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="item-label">Pagamento de Contas:</span>
+                                            <span class="item-value" id="breakdownBillPayment">-</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="item-label">Uso de Cartão:</span>
+                                            <span class="item-value" id="breakdownCreditCard">-</span>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <span class="item-label">Cadastro Positivo:</span>
+                                            <span class="item-value" id="breakdownCadastro">-</span>
+                                        </div>
+                                        <div class="breakdown-item breakdown-total">
+                                            <span class="item-label">Total:</span>
+                                            <span class="item-value" id="breakdownTotal">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recomendações -->
+                                <div class="score-recommendations" id="scoreRecommendations"></div>
+
+                                <button id="newScoreCheckBtn" class="btn btn-outline">
+                                    <i class="fas fa-redo"></i>
+                                    Fazer Nova Simulação
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Linha de Tempo (Quitação) -->
+                    <section id="payment-timeline" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-calendar-alt"></i> Linha de Tempo (Quitação)</h2>
+                        </div>
+
+                        <div class="timeline-container">
+                            <div class="timeline-info-box">
+                                <i class="fas fa-lightbulb"></i>
+                                <div>
+                                    <strong>💡 Quer quitar mais rápido e economizar uma grana?</strong>
+                                    <p>É simples: quanto mais você antecipar o pagamento das parcelas, menos juros você paga! Imagine pagar 2 ou 3 parcelas por mês ao invés de uma só... você termina de pagar muito antes e economiza um dinheirão! 😊</p>
+                                </div>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 20px;">
+                                <a href="whatsapp://send?phone=558599154367&text=Ola!%20Gostaria%20de%20informacoes%20sobre%20quitacao%20antecipada." class="btn btn-primary" style="background: #25d366;">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Fale com a Gente no WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Chats -->
+                    <section id="chats" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-comments"></i> Conversas com Especialistas</h2>
+                            <p>Chat em tempo real com nossos especialistas</p>
+                        </div>
+
+                        <div class="specialists-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <!-- Fabricio - Azul Claro -->
+                            <div class="specialist-card" data-specialist="fabricio" style="background: var(--specialist-fabricio-bg, linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)); border-radius: 16px; padding: 20px; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">F</div>
+                                    <div style="flex: 1;">
+                                        <h4 style="margin: 0; font-size: 18px;">Fabrício</h4>
+                                        <p style="margin: 5px 0 0; opacity: 0.9; font-size: 13px;">Especialista em Financiamento</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <p style="margin: 0 0 15px; font-size: 14px; opacity: 0.9;"></p>
+                                    <a href="whatsapp://send?phone=5585994171463&text=Ola!%20Gostaria%20de%20falar%20com%20o%20Fabricio%20sobre%20financiamentos." class="btn-whatsapp-specialist" style="background: white; color: #25d366; border: none; padding: 10px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Neto - Verde Água -->
+                            <div class="specialist-card" data-specialist="neto" style="background: var(--specialist-neto-bg, linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)); border-radius: 16px; padding: 20px; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">N</div>
+                                    <div style="flex: 1;">
+                                        <h4 style="margin: 0; font-size: 18px;">Neto</h4>
+                                        <p style="margin: 5px 0 0; opacity: 0.9; font-size: 13px;">Especialista em Propostas</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <p style="margin: 0 0 15px; font-size: 14px; opacity: 0.9;"></p>
+                                    <a href="whatsapp://send?phone=5585987654347&text=Ola!%20Gostaria%20de%20falar%20com%20o%20Neto%20sobre%20propostas." class="btn-whatsapp-specialist" style="background: white; color: #25d366; border: none; padding: 10px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Wandreyna - Roxo Suave -->
+                            <div class="specialist-card" data-specialist="wandreyna" style="background: var(--specialist-wandreyna-bg, linear-gradient(135deg, #8840cc 0%, #9333ea 100%)); border-radius: 16px; padding: 20px; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">W</div>
+                                    <div style="flex: 1;">
+                                        <h4 style="margin: 0; font-size: 18px;">Wandreyna</h4>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <p style="margin: 0 0 15px; font-size: 14px; opacity: 0.9;"></p>
+                                    <a href="whatsapp://send?phone=5585999278363&text=Ola!%20Gostaria%20de%20falar%20com%20a%20Wandreyna%20sobre%20simulacoes." class="btn-whatsapp-specialist" style="background: white; color: #25d366; border: none; padding: 10px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Edér - Azul Petróleo -->
+                            <div class="specialist-card" data-specialist="eder" style="background: var(--specialist-eder-bg, linear-gradient(135deg, #e08c1c 0%, #e08c1c 100%)); border-radius: 16px; padding: 20px; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">E</div>
+                                    <div style="flex: 1;">
+                                        <h4 style="margin: 0; font-size: 18px;">Edér</h4>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <p style="margin: 0 0 15px; font-size: 14px; opacity: 0.9;"></p>
+                                    <a href="whatsapp://send?phone=5585989645804&text=Ola!%20Gostaria%20de%20falar%20com%20o%20Eder%20sobre%20quitacao." class="btn-whatsapp-specialist" style="background: white; color: #25d366; border: none; padding: 10px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Suzana - Rosa Suave -->
+                            <div class="specialist-card" data-specialist="suzana" style="background: var(--specialist-suzana-bg, linear-gradient(135deg, #55995e 0%, #55855f 100%)); border-radius: 16px; padding: 20px; color: white; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(44,62,80,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">S</div>
+                                    <div style="flex: 1;">
+                                        <h4 style="margin: 0; font-size: 18px; color: #2C3E50;">Suzana</h4>
+                                        <p style="margin: 5px 0 0; opacity: 0.9; font-size: 13px; color: #2C3E50;">Especialista em Atendimento</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <p style="margin: 0 0 15px; font-size: 14px; color: #2C3E50;"></p>
+                                    <a href="whatsapp://send?phone=5585989216605&text=Ola!%20Gostaria%20de%20falar%20com%20a%20Suzana%20sobre%20atendimento." class="btn-whatsapp-specialist" style="background: #25d366; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    
+                    <!-- Suporte -->
+                    <section id="support" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-headset"></i> Suporte Técnico</h2>
+                            <p>Estamos aqui para ajudar com qualquer dúvida ou problema</p>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
+                            <!-- Card de Ajuda Técnica -->
+                            <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 16px; padding: 30px; color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+                                <div style="font-size: 40px; margin-bottom: 15px;"><i class="fas fa-tools"></i></div>
+                                <h3 style="margin: 0 0 15px; font-size: 20px; font-weight: 700;">Problemas Técnicos</h3>
+                                <p style="margin: 0 0 20px; font-size: 14px; opacity: 0.95; line-height: 1.6;">Encontrou algum erro ou dificuldade ao usar a plataforma? Nossa equipe técnica está pronta para resolver rapidamente.</p>
+                                <a href="mailto:suporte@ccapiconsultoriaemcredito.com?subject=Suporte%20Tecnico%20-%20Ccapi" class="btn" style="background: white; color: #3b82f6; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-envelope"></i> Enviar Email
+                                </a>
+                            </div>
+
+                            <!-- Card de Dúvidas Gerais -->
+                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 16px; padding: 30px; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
+                                <div style="font-size: 40px; margin-bottom: 15px;"><i class="fas fa-question-circle"></i></div>
+                                <h3 style="margin: 0 0 15px; font-size: 20px; font-weight: 700;">Dúvidas Gerais</h3>
+                                <p style="margin: 0 0 20px; font-size: 14px; opacity: 0.95; line-height: 1.6;">Tem dúvidas sobre financiamentos, propostas ou como usar nossos serviços? Vamos esclarecer tudo para você.</p>
+                                <a href="mailto:suporte@ccapiconsultoriaemcredito.com?subject=Duvida%20Geral%20-%20Ccapi" class="btn" style="background: white; color: #059669; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-envelope"></i> Enviar Email
+                                </a>
+                            </div>
+
+                            <!-- Card de Feedback -->
+                            <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 16px; padding: 30px; color: white; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);">
+                                <div style="font-size: 40px; margin-bottom: 15px;"><i class="fas fa-star"></i></div>
+                                <h3 style="margin: 0 0 15px; font-size: 20px; font-weight: 700;">Sugestões e Feedback</h3>
+                                <p style="margin: 0 0 20px; font-size: 14px; opacity: 0.95; line-height: 1.6;">Quer sugerir melhorias ou compartilhar sua experiência conosco? Adoramos ouvir seus comentários!</p>
+                                <a href="mailto:suporte@ccapiconsultoriaemcredito.com?subject=Feedback%20e%20Sugestoes%20-%20Ccapi" class="btn" style="background: white; color: #d97706; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-envelope"></i> Enviar Email
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Seção de Informações de Contato -->
+                        <div style="margin-top: 40px; padding: 25px; background: var(--gray-50); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                            <h3 style="margin: 0 0 15px; font-size: 18px; font-weight: 700; color: var(--text-dark);"><i class="fas fa-info-circle"></i> Informações de Contato</h3>
+                            <p style="margin: 0 0 10px; color: var(--text-light);"><strong>Email:</strong> suporte@ccapiconsultoriaemcredito.com</p>
+                            <p style="margin: 0; color: var(--text-light);"><strong>Tempo de resposta:</strong> Respondemos em até 24 horas úteis</p>
+                        </div>
+                    </section>
+
+
+                    <!-- Tutorial -->
+                    <section id="tutorial" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-graduation-cap"></i> Tutorial Interativo</h2>
+                            <p>Aprenda a usar todas as funcionalidades do sistema</p>
+                        </div>
+
+                        <div class="tutorial-welcome-section">
+                            <div class="tutorial-intro-card">
+                                <div class="tutorial-intro-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h3>Bem-vindo ao Tutorial!</h3>
+                                <p>Preparamos um tour completo para você conhecer todas as funcionalidades disponíveis no painel.</p>
+                                <button class="btn btn-primary btn-lg" id="startTutorialBtn" data-testid="start-tutorial-btn">
+                                    <i class="fas fa-play"></i> Iniciar Tour Guiado
+                                </button>
+                            </div>
+
+                            <div class="tutorial-features-grid">
+                                <div class="tutorial-feature-card">
+                                    <div class="tutorial-feature-icon">
+                                        <i class="fas fa-mouse-pointer"></i>
+                                    </div>
+                                    <h4>Interativo</h4>
+                                    <p>Navegue passo a passo por cada funcionalidade</p>
+                                </div>
+                                <div class="tutorial-feature-card">
+                                    <div class="tutorial-feature-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <h4>Rápido</h4>
+                                    <p>Apenas 2-3 minutos para conhecer tudo</p>
+                                </div>
+                                <div class="tutorial-feature-card">
+                                    <div class="tutorial-feature-icon">
+                                        <i class="fas fa-redo"></i>
+                                    </div>
+                                    <h4>Repetível</h4>
+                                    <p>Refaça quantas vezes precisar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Gerenciador de Instagram -->
+                    <section id="instagram-manager" class="painel-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-instagram"></i> Gerenciar Feed de Notícias</h2>
+                            <p>Configure as imagens e títulos dos posts que aparecem no site</p>
+                        </div>
+
+                        <div style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <form id="instagramManagerForm">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                    <!-- Post 1 -->
+                                    <div style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 15px;">
+                                        <h4 style="margin-top: 0; color: #1f2937;">Post 1 - Financiamento</h4>
+                                        <div class="form-group">
+                                            <label>URL da Imagem</label>
+                                            <input type="url" id="insta_img_0" placeholder="https://..." value="https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=600&h=400&fit=crop" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Título do Post</label>
+                                            <input type="text" id="insta_titulo_0" placeholder="Seu título aqui" value="Seu sonho de ter um veículo pode virar realidade em 15 minutinhos!" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Post 2 -->
+                                    <div style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 15px;">
+                                        <h4 style="margin-top: 0; color: #1f2937;">Post 2 - Motos</h4>
+                                        <div class="form-group">
+                                            <label>URL da Imagem</label>
+                                            <input type="url" id="insta_img_1" placeholder="https://..." value="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Título do Post</label>
+                                            <input type="text" id="insta_titulo_1" placeholder="Seu título aqui" value="Quer sair de moto nova? Na CCAPI Financiamentos" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Post 3 -->
+                                    <div style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 15px;">
+                                        <h4 style="margin-top: 0; color: #1f2937;">Post 3 - Pesados</h4>
+                                        <div class="form-group">
+                                            <label>URL da Imagem</label>
+                                            <input type="url" id="insta_img_2" placeholder="https://..." value="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Título do Post</label>
+                                            <input type="text" id="insta_titulo_2" placeholder="Seu título aqui" value="O consórcio de pesados viabiliza o investimento em ativos" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Post 4 -->
+                                    <div style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 15px;">
+                                        <h4 style="margin-top: 0; color: #1f2937;">Post 4 - Parceiros</h4>
+                                        <div class="form-group">
+                                            <label>URL da Imagem</label>
+                                            <input type="url" id="insta_img_3" placeholder="https://..." value="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Título do Post</label>
+                                            <input type="text" id="insta_titulo_3" placeholder="Seu título aqui" value="Seja um parceiro CCAPI e ganhe mais!" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Post 5 -->
+                                    <div style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 15px;">
+                                        <h4 style="margin-top: 0; color: #1f2937;">Post 5 - Dicas</h4>
+                                        <div class="form-group">
+                                            <label>URL da Imagem</label>
+                                            <input type="url" id="insta_img_4" placeholder="https://..." value="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Título do Post</label>
+                                            <input type="text" id="insta_titulo_4" placeholder="Seu título aqui" value="2026: A CCAPI Financiamentos deseja a todos um extraordinário ano!" style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                        <i class="fas fa-save"></i> Salvar Configurações
+                                    </button>
+                                    <button type="button" id="previewInstagramBtn" class="btn btn-secondary" style="flex: 1;">
+                                        <i class="fas fa-eye"></i> Visualizar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais -->
+    <!-- Modal de Perfil/Conta -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-modal-content">
+            <div class="modal-header">
+                <h2>Minha Conta</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info-header">
+                    <div class="profile-avatar-large">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 id="profileNameDisplay">Nome do Usuário</h3>
+                    <p id="profileEmailDisplay">usuario@email.com</p>
+                </div>
+                
+                <div class="profile-details-list">
+                    <div class="profile-detail-item">
+                        <div class="detail-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="detail-info">
+                            <label>CPF/CNPJ</label>
+                            <span id="profileDocDisplay">---</span>
+                        </div>
+                    </div>
+                    <div class="profile-detail-item">
+                        <div class="detail-icon"><i class="fas fa-phone"></i></div>
+                        <div class="detail-info">
+                            <label>Telefone</label>
+                            <span id="profilePhoneDisplay">---</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 20px; border-top: 1px solid var(--gray-100); display: flex; justify-content: center;">
+                <button id="logoutBtnProfile" class="btn btn-outline" style="color: var(--danger-color); border-color: var(--danger-color); width: 100%;">
+                    <i class="fas fa-sign-out-alt"></i> Sair da Conta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login de Parceiro</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" placeholder="Sua senha" required>
+                    </div>
+                    
+                    <div class="form-group" style="text-align: right; margin-top: -10px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <a href="#" id="forgotPasswordLink" style="color: var(--primary); font-size: 0.9rem; text-decoration: none;">
+                                Esqueceu a senha?
+                            </a>
+                            <a href="#" id="lostEmailLink" style="color: var(--primary); font-size: 0.9rem; text-decoration: none;">
+                                Perdeu e-mail?
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                </form>
+                <p class="modal-footer-text">
+                    Ainda não é parceiro? <a href="#" id="switchToRegister">Cadastre-se</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Recuperação de Senha -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recuperar Senha</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    Digite seu email cadastrado e enviaremos um link para redefinir sua senha.
+                </p>
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="forgotEmail">Email</label>
+                        <input type="email" id="forgotEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Enviar Link</button>
+                </form>
+                <p class="modal-footer-text">
+                    Lembrou a senha? <a href="#" id="backToLogin">Voltar ao Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Redefinição de Senha -->
+    <div id="resetPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Redefinir Senha</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    Digite sua nova senha abaixo.
+                </p>
+                <form id="resetPasswordForm">
+                    <input type="hidden" id="resetToken">
+                    <div class="form-group">
+                        <label for="newPassword">Nova Senha</label>
+                        <input type="password" id="newPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar Senha</label>
+                        <input type="password" id="confirmPassword" placeholder="Digite a senha novamente" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Redefinir Senha</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Email Enviado -->
+    <div id="emailSentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✅ Email Enviado!</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <div style="font-size: 4rem; color: var(--success); margin: 20px 0;">
+                    <i class="fas fa-envelope-circle-check"></i>
+                </div>
+                <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                    Enviamos um link de recuperação para seu email!
+                </p>
+                <p style="color: var(--text-light); margin-bottom: 20px;">
+                    Verifique sua caixa de entrada (e spam) e clique no link para redefinir sua senha.
+                </p>
+                <p style="color: var(--text-light); font-size: 0.9rem;">
+                    O link expira em 1 hora.
+                </p>
+                <button class="btn btn-primary" onclick="closeAllModals()">Entendi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Recuperação de Email -->
+    <div id="lostEmailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recuperar Email</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    Digite o email que você gostaria de usar para recuperar sua conta. Enviaremos um link de confirmação.
+                </p>
+                <form id="lostEmailForm">
+                    <div class="form-group">
+                        <label for="recoveryEmail">Email para Recuperação</label>
+                        <input type="email" id="recoveryEmail" placeholder="seu@email.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Enviar Link</button>
+                </form>
+                <p class="modal-footer-text">
+                    Lembrou o email? <a href="#" id="backToLoginFromEmail">Voltar ao Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Verificação de Dados para Recuperação de Email -->
+    <div id="verifyDataForEmailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Verificar Dados Pessoais</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    Para sua segurança, verifique seus dados pessoais cadastrados.
+                </p>
+                <form id="verifyDataForm">
+                    <div class="form-group">
+                        <label for="verifyName">Nome Completo</label>
+                        <input type="text" id="verifyName" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="verifyCPF">CPF</label>
+                        <input type="text" id="verifyCPF" placeholder="000.000.000-00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="verifyPhone">Telefone</label>
+                        <input type="tel" id="verifyPhone" placeholder="(11) 99999-9999" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="verifyPassword">Senha</label>
+                        <input type="password" id="verifyPassword" placeholder="Sua senha atual" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Verificar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Atualização de Email e Senha -->
+    <div id="updateEmailPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Atualizar Email e Senha</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-light);">
+                    Agora você pode atualizar seu email e senha.
+                </p>
+                <form id="updateEmailPasswordForm">
+                    <div class="form-group">
+                        <label for="newEmail">Novo Email</label>
+                        <input type="email" id="newEmail" placeholder="seu.novo@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Nova Senha</label>
+                        <input type="password" id="newPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewPassword">Confirmar Senha</label>
+                        <input type="password" id="confirmNewPassword" placeholder="Digite a senha novamente" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Atualizar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cadastro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Criar Conta</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nome Completo</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerDocument">CPF/CNPJ</label>
+                    <input type="text" id="registerDocument" placeholder="000.000.000-00" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Telefone</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Senha</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Criar Conta</button>
+                </div>
+                <p class="modal-footer">
+                    Já tem conta? <a href="#" id="switchToLogin">Fazer login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Proposta Enviada!</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p>Sua proposta foi enviada com sucesso!</p>
+                <p><strong>Entraremos em contato em breve.</strong></p>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary modal-close">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificações -->
+    <div id="notification" class="notification"></div>
+
+    <script src="notification-system.js"></script>
+    <script src="patch-simulacao-v2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+    <script src="tutorial.js"></script>
+    <script src="patch_fipe.js"></script>
+    <script>
+        // Função para calcular o score de crédito
+        window.calculateScoreGlobal = function() {
+            try {
+                // Obter valores dos campos
+                const billPayment = document.getElementById('billPayment')?.value;
+                const creditCardUsage = document.getElementById('creditCardUsage')?.value;
+                const cleanName = document.getElementById('cleanName')?.value;
+                const positiveCadastro = document.getElementById('positiveCadastro')?.value;
+
+                // Validar se todos os campos foram preenchidos
+                if (!billPayment || !creditCardUsage || !cleanName || !positiveCadastro) {
+                    alert('Por favor, preencha todos os campos do formulário!');
+                    return false;
+                }
+
+                let score = 0;
+                let breakdown = {
+                    cleanName: 0,
+                    billPayment: 0,
+                    creditCard: 0,
+                    cadastro: 0
+                };
+
+                // Calcular pontos por Nome Limpo (0-250 pontos)
+                if (cleanName === 'yes') {
+                    breakdown.cleanName = 250;
+                    score += 250;
+                } else {
+                    breakdown.cleanName = 0;
+                }
+
+                // Calcular pontos por Pagamento de Contas (0-250 pontos)
+                if (billPayment === 'always') {
+                    breakdown.billPayment = 250;
+                    score += 250;
+                } else if (billPayment === 'sometimes') {
+                    breakdown.billPayment = 125;
+                    score += 125;
+                } else if (billPayment === 'many') {
+                    breakdown.billPayment = 0;
+                }
+
+                // Calcular pontos por Uso de Cartão (0-250 pontos)
+                if (creditCardUsage === 'full-payment') {
+                    breakdown.creditCard = 250;
+                    score += 250;
+                } else if (creditCardUsage === 'partial-payment') {
+                    breakdown.creditCard = 125;
+                    score += 125;
+                } else if (creditCardUsage === 'no-use') {
+                    breakdown.creditCard = 100;
+                    score += 100;
+                }
+
+                // Calcular pontos por Cadastro Positivo (0-250 pontos)
+                if (positiveCadastro === 'active') {
+                    breakdown.cadastro = 250;
+                    score += 250;
+                } else {
+                    breakdown.cadastro = 0;
+                }
+
+                // Garantir que o score não ultrapasse 1000
+                score = Math.min(score, 1000);
+
+                // Exibir resultado
+                displayScoreResult(score, breakdown);
+                return false;
+            } catch (error) {
+                console.error('Erro ao calcular score:', error);
+                alert('Erro ao calcular o score. Tente novamente.');
+                return false;
+            }
+        };
+
+        // Função para exibir o resultado do score
+        function displayScoreResult(score, breakdown) {
+            // Mostrar a seção de resultado
+            const scoreResultDiv = document.getElementById('scoreResult');
+            if (scoreResultDiv) {
+                scoreResultDiv.style.display = 'block';
+            }
+
+            // Atualizar o valor do score
+            const scoreValue = document.getElementById('scoreValue');
+            if (scoreValue) {
+                scoreValue.textContent = score;
+            }
+
+            // Atualizar a faixa de score
+            const scoreRange = document.getElementById('scoreRange');
+            if (scoreRange) {
+                let rangeText = '';
+                let rangeColor = '';
+                if (score >= 800) {
+                    rangeText = 'Excelente';
+                    rangeColor = '#10b981';
+                } else if (score >= 600) {
+                    rangeText = 'Bom';
+                    rangeColor = '#3b82f6';
+                } else if (score >= 400) {
+                    rangeText = 'Regular';
+                    rangeColor = '#f59e0b';
+                } else {
+                    rangeText = 'Baixo';
+                    rangeColor = '#ef4444';
+                }
+                scoreRange.innerHTML = `<span style="color: ${rangeColor}; font-weight: 600; font-size: 1.1rem;">${rangeText}</span>`;
+            }
+
+            // Atualizar breakdown
+            if (document.getElementById('breakdownCleanName')) {
+                document.getElementById('breakdownCleanName').textContent = breakdown.cleanName + ' pts';
+            }
+            if (document.getElementById('breakdownBillPayment')) {
+                document.getElementById('breakdownBillPayment').textContent = breakdown.billPayment + ' pts';
+            }
+            if (document.getElementById('breakdownCreditCard')) {
+                document.getElementById('breakdownCreditCard').textContent = breakdown.creditCard + ' pts';
+            }
+            if (document.getElementById('breakdownCadastro')) {
+                document.getElementById('breakdownCadastro').textContent = breakdown.cadastro + ' pts';
+            }
+            if (document.getElementById('breakdownTotal')) {
+                document.getElementById('breakdownTotal').textContent = score + ' pts';
+            }
+
+            // Scroll para o resultado
+            if (scoreResultDiv) {
+                scoreResultDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Função para lidar com o envio do formulário de login
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                // Armazenar dados do usuário no localStorage (simulado)
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', email.split('@')[0]);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Fechar o modal de login
+                const loginModal = document.getElementById('loginModal');
+                if (loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                
+                // Recarregar a página para exibir as informações do usuário
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
+            } catch (error) {
+                console.error('Erro ao fazer login:', error);
+                alert('Erro ao fazer login. Tente novamente.');
+            }
+        }
+
+        // Evento para o botão de nova simulação de score
+        document.addEventListener('DOMContentLoaded', function() {
+            const newScoreCheckBtn = document.getElementById('newScoreCheckBtn');
+            if (newScoreCheckBtn) {
+                newScoreCheckBtn.addEventListener('click', function() {
+                    const scoreResult = document.getElementById('scoreResult');
+                    if (scoreResult) {
+                        scoreResult.style.display = 'none';
+                    }
+                    const billPayment = document.getElementById('billPayment');
+                    const creditCardUsage = document.getElementById('creditCardUsage');
+                    const cleanName = document.getElementById('cleanName');
+                    const positiveCadastro = document.getElementById('positiveCadastro');
+                    
+                    if (billPayment) billPayment.value = '';
+                    if (creditCardUsage) creditCardUsage.value = '';
+                    if (cleanName) cleanName.value = '';
+                    if (positiveCadastro) positiveCadastro.value = '';
+                });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const isTauri = window.__TAURI_INTERNALS__ !== undefined || window.__TAURI__ !== undefined;
+            
+            document.querySelectorAll('.external-link').forEach(link => {
+                link.addEventListener('click', async (e) => {
+                    if (isTauri) {
+                        e.preventDefault();
+                        const url = link.getAttribute('href');
+                        try {
+                            if (window.__TAURI__ && window.__TAURI__.shell) {
+                                await window.__TAURI__.shell.open(url);
+                            } else if (window.__TAURI_INTERNALS__) {
+                                await window.__TAURI__.invoke('tauri', {
+                                    cmd: 'open',
+                                    path: url
+                                });
+                            } else {
+                                window.open(url, '_blank');
+                            }
+                        } catch (err) {
+                            console.error('Erro ao abrir link no Tauri:', err);
+                            window.open(url, '_blank');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>]
