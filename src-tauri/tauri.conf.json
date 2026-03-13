@@ -34,7 +34,7 @@
   },
   "identifier": "com.ccapi.system",
   "productName": "CCAPI ADMIN",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "plugins": {
     "opener": {}
   }
